@@ -100,7 +100,7 @@ void Outputs(const guidance_navigation_control::controlCommand& controls_data) {
   Y_angle_setpoint = controls_data.pitch_set;
   Z_angle_setpoint = controls_data.roll_set;
   H_distance_setpoint = controls_data.distance_set;
-  barometer_setpoint = controls_data.depth_set;
+  //barometer_setpoint = controls_data.depth_set;
   Manual_INPUT();
   Path_Optimization();
   H_distance_PID.Compute();

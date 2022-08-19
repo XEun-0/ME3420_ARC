@@ -21,6 +21,8 @@ class SearchForBase(smach.State):
 		time.sleep(1)
 
 	def execute(self, userdata):
+		self.task.currentState = "Search: Base"
+                self.smach_pub.publish(self.task)
 		#Turn 180
 		print("Turn 180")
 		self.task.yaw_set = 180

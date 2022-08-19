@@ -21,6 +21,8 @@ class BumpIntoBuoy(smach.State):
 		time.sleep(0.1)
 
 	def execute(self, userdata):
+		self.task.currentState = "Bump: Buoy"
+                self.smach_pub.publish(self.task)
 		self.task.bumpIntoBuoy = True
 		self.smach_pub.publish(self.task)
 		while True:

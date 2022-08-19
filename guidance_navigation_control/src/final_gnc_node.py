@@ -43,8 +43,13 @@ class Guidance_Navigation_Control():
 	def update_setpoints(self):
 		print("updating")
 		self.setpoints.yaw_set = self.smach_data.yaw_set + self.sensors_data.yaw_current
-		self.setpoints.pitch_set = self.smach_data.pitch_set + self.sensors_data.pitch_current
-		self.setpoints.roll_set = self.smach_data.roll_set + self.sensors_data.roll_current
+		if (self.setpoints.yaw_set > 360):
+			self.setpoints.yaw_set -= 360
+		elif (self.setpoints.yaw_set < 0):
+			self.setpoints.yaw_set += 360
+
+		self.setpoints.pitch_set = self.smach_data.pitch_set #changed to absolute
+		self.setpoints.roll_set = self.smach_data.roll_set #changed to absolute
 		self.setpoints.depth_set = self.smach_data.depth_set + self.sensors_data.depth_current
 		self.setpoints.distance_set = self.smach_data.distance_set
 

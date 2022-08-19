@@ -50,8 +50,8 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate messages in the 'msg' folder
  add_message_files(
   FILES
-  target.msg
-  Cv_data.msg
+  all_targets.msg
+  class_object.msg
  )
 
 ## Generate services in the 'srv' folder

@@ -1,11 +1,11 @@
 import rospy
 import threading
-from computer_vision.msg import target
+from computer_vision.msg import all_targets
 from guidance_navigation_control.msg import sensorInfo_actuatorStatus
 from guidance_navigation_control.msg import task_desiredAction
 from guidance_navigation_control.msg import controlCommand
 
-topic_to_datatype = {'target':target, 'sensorInfo_actuatorStatus':sensorInfo_actuatorStatus,
+topic_to_datatype = {'target':all_targets, 'sensorInfo_actuatorStatus':sensorInfo_actuatorStatus,
 		     'task_desiredAction':task_desiredAction, 'controlCommand':controlCommand}
 
 class Subscribe_to():

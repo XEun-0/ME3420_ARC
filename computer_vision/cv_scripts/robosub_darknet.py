@@ -1,11 +1,14 @@
 #!python3
+
 """
 Python 3 wrapper for identifying objects in images
 
-Modified by:  Heriberto Gonzalez (gonzo-32)
-This file has been modified for the RoboSub Competition.
+Modified by:  Aren Petrossian
+This file has been modified for the RoboSub Intro Robotics Class.
 
 """
+
+from computer_vision.msg import class_object
 from ctypes import *
 import math
 import random
@@ -103,9 +106,9 @@ def load_network(config_file, data_file, weights, batch_size=1):
     colors = class_colors(class_names)
     return network, class_names, colors
 
-'''
-    CV TRACKING: Heriberto Gonzalez (gonzo-32)
-'''
+
+
+
 def cv_tracking(ObjCenter, ScrCenter, degPpix):
     output = [0,0]
     xPixError = ObjCenter[0] - ScrCenter[0]
@@ -119,52 +122,41 @@ def cv_tracking(ObjCenter, ScrCenter, degPpix):
     return output
 
 
-'''
-    ROS PACKAGE: Heriberto Gonzalez (gonzo-32)
-'''
-def ros_package(detections, ScrCenter, degPpix, coordinates=False):
+def ros_package(detections, ScrCenter, degPpix):
     output = []
     for label, confidence, bbox in detections:
         x, y, w, h = bbox
-        #print bbox
-        #xCenter = int(x + w/2)  ##edited
-        #yCenter = int(y + h/2)  ##edited
-        #apparently x and y are the centers already
-        #         print (xCenter, yCenter)
-        if coordinates:
-            errors = cv_tracking([x, y], ScrCenter, degPpix)
-            zDist = parameters.buoy_width * parameters.focal_length / w
-            #print (errors[1])
-            yDist = zDist * math.tan(math.radians(errors[1]))
+        errors = cv_tracking([x, y], ScrCenter, degPpix)
+        zDist = parameters.buoy_height * parameters.focal_length / h
+        yDist = zDist * math.tan(math.radians(errors[1]))
 
-            output.append(label)
-            output.append(float(confidence))
-            output.append(errors[0])
-            output.append(yDist)
-            output.append(zDist)
+        detection = class_object()
 
-        return output
+        detection.name = label
+        detection.confidence = float(confidence)
+        detection.x_angle = errors[0]
+        detection.y_distance = yDist
+        detection.z_distance = zDist
+
+        output.append(detection)
+
+    return output
 
 
-'''
-    DRAWING BBOXS: Heriberto Gonzalez (gonzo-32)
-'''
 def draw_boxes(detections, image, colors):
     import cv2
     for label, confidence, bbox in detections:
         left, top, right, bottom = bbox2points(bbox)
-        #print(image.shape)
-        xCenter = int((left + right) / 2) #modified by Heriberto Gonzalez
-        yCenter = int((top + bottom) / 2) #modified by Heriberto Gonzalez
-        cv2.line(image, (xCenter,yCenter), (xCenter,yCenter), (255,0,0), 5) #modified by Heriberto Gonzalez
+        xCenter = int((left + right) / 2)
+        yCenter = int((top + bottom) / 2)
+        cv2.line(image, (xCenter,yCenter), (xCenter,yCenter), (255,0,0), 5)
         cv2.rectangle(image, (left, top), (right, bottom), colors[label], 1)
-        #print("hey", xCenter, yCenter)
         cv2.putText(image, "{} [{:.2f}]".format(label, float(confidence)),
                     (left, top - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5,
                     colors[label], 2)
     return image
 
- 
+
 def decode_detection(detections):
     decoded = []
     for label, confidence, bbox in detections:

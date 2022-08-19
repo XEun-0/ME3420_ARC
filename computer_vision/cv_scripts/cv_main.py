@@ -7,11 +7,15 @@ import robosub_darknet
 import argparse
 import random
 import rospy
-from computer_vision.msg import target
+from computer_vision.msg import all_targets
+from computer_vision.msg import class_object
 from parameters import *
+from sensor_msgs.msg import Image
+from cv_bridge import CvBridge, CvBridgeError
+
 
 """
-    Modifier: HERIBERTO GONZALEZ (gonzo-32), RICARDO MEDINA ()
+    Modifier: Aren Petrossian
     Main script (Non-Multithreading Version) for running the darknet+yolov4 Convolutional Neural Network:
         - import os:
         - import cv2:
@@ -26,7 +30,7 @@ from parameters import *
         def set_saved_video(input_video, output_video, size):
 
     To close the script press: ' q and Esc '
-        
+
 """
 def parser(weights, cfg, yoloData):
     parser = argparse.ArgumentParser(description="YOLO Object Detection")
@@ -90,11 +94,9 @@ def main(weights, cfg, yoloData):
         ROS INIT
     '''
     rospy.init_node('CV')
-    cv_pub = rospy.Publisher('target', target, queue_size=10)
-    data = target()
-
+    cv_pub = rospy.Publisher('target', all_targets, queue_size=10)
     '''
-        ARGS passing in neccessary files 
+        ARGS passing in neccessary files
     '''
     args = parser(weights, cfg, yoloData)
 
@@ -113,15 +115,19 @@ def main(weights, cfg, yoloData):
     height = robosub_darknet.network_height(network)
     print (width, height)
     robosub_darknet_image = robosub_darknet.make_image(width, height, 3)
-
     #aren:
     ScrCenter = [int(width/2), int(height/2)]
     degPpix = [(float(FOV_x)/ScrCenter[0]), (float(FOV_y)/ScrCenter[1])]
     noObjCounter = 9
+    firstLoop = True
+    prev_output = []
 
     input_path = str2int(args.input)
     cap = cv2.VideoCapture(input_path)
     video = set_saved_video(cap, args.out_filename, (width, height))
+
+    bridge = CvBridge()
+    frame_pub = rospy.Publisher('Image', Image, queue_size=1)
 
     while cap.isOpened():
         prev_time = time.time()
@@ -139,49 +145,46 @@ def main(weights, cfg, yoloData):
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         if args.out_filename is not None:
             video.write(image)
-        fps = int(1/(time.time() - prev_time))
+        fps = round((1/(time.time() - prev_time)), 1)
+        if firstLoop:
+            fps = 10.0
+            firstLoop = False
         print("FPS: {}".format(fps))
 
         '''
             ROS OUTPUT
         '''
+        ImageMsg = bridge.cv2_to_imgmsg(image, "bgr8")
+        frame_pub.publish(ImageMsg)
         #ros_output = robosub_darknet.ros_package(detections, True)
-        ros_output = robosub_darknet.ros_package(detections,ScrCenter,degPpix,True)
+        ros_output = robosub_darknet.ros_package(detections,ScrCenter,degPpix)
+	print (ros_output)
         #obj 1 will be buoy we want to detect, 2 will be other, 3 will be home base
         if ros_output is not None:
             noObjCounter = 0
         elif (noObjCounter < 4):
-            ros_output = prevN, prevC, prevX, prevY, prevD
+            ros_output = prev_output
             noObjCounter = noObjCounter + 1
         try:
-            if (ros_output[0] == "camera-box"):
-                data.buoy1 = True
-                data.buoy1x = ros_output[2]
-                data.buoy1y = ros_output[3]
-                data.buoy1_distance = ros_output[4]
-            elif (ros_output[0] == "camera-box2"):
-                data.buoy2 = True
-                data.buoy2x = ros_output[2]
-                data.buoy2y = ros_output[3]
-                data.buoy2_distance = ros_output[4]
-            elif (ros_output[0] == "camera-box3"):
-                data.buoy3 = True
-                data.buoy3x = ros_output[2]
-                data.buoy3y = ros_output[3]
-                data.buoy3_distance = ros_output[4]
-            prevN, prevC, prevX, prevY, prevD = ros_output
-            cv_pub.publish(data)
+            all_objects = all_targets()
+            all_objects.fps = fps
+            for i in range(len(ros_output)):
+                object = class_object()
+                object = ros_output[i]
+
+                all_objects.targets.append(object)
+
+            prev_output = ros_output
+            print("publishing")
+            cv_pub.publish(all_objects)
+
         except:
-            print "no"
-            data.buoy1 = False
-            data.buoy2 = False
-            data.buoy3 = False
-            cv_pub.publish(data)
+            print("no")
+            cv_pub.publish(all_objects)
 
         if not args.dont_show:
             cv2.imshow('Inference', image)
-            cv2.waitKey(fps)
-            
+            cv2.waitKey(int(fps))
         k = cv2.waitKey(10) & 0xFF
         if k == 27:
             break
