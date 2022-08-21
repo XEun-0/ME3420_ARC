@@ -168,3 +168,14 @@ To run Visual Studio Code, and setup github call it in a terminal
 *The output should look like the following:*
 
 ![RQT_Graph](rqt_graph.png)
+
+---
+# Topic 3: Training of Neural Network
+## 3.1 Image labeling
+1. prepare the images from videos
+2. labeling tool
+
+
+## 3.2 Image training
+
+
