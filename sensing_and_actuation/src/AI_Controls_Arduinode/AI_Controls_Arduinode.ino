@@ -55,7 +55,9 @@ double Y_angle_input, Y_angle_output, Y_angle_setpoint;
 double Z_angle_input, Z_angle_output, Z_angle_setpoint;
 double temp_input;
 unsigned long lastUnstable = 0;
-
+////////////////////////////////////////////////////////
+// Edit PID gains to tune for imporved performance
+///////////////////////////////////////////////////////
 double H_distance_kP = 1;            //****
 double H_distance_kI = 0;            //****
 double H_distance_kD = 0;            //****
