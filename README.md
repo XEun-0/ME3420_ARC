@@ -41,12 +41,14 @@ Follow the progress of the course to modify the code within sections with place 
 
 
 # Topic 1: get started
-## 1.1 prepare the micro-sd card for Nvidia Jetson Nano  
+## 1.1 prepare the micro-sd card for Nvidia Jetson Nano   
+
 Follow this link to setup the jetson-nano 4G: https://developer.nvidia.com/embedded/learn/get-started-jetson-nano-devkit.  
 Follow this link to setup the jetson-nano 2G: https://developer.nvidia.com/embedded/learn/get-started-jetson-nano-2gb-devkit.  
 Note: For Jetson-nano-2gb board, choose this version: Jetson Nano 2GB Developer Kit SD Card Image 4.6
 Username and password choose: robosub
 After installation, your system will have this version: Ubuntu 18.04  
+
 ---
 ## 1.2 install ROS  
 We will ros melodic as an example, check compatability before choosing which version of ros to install. The official operating system for the Jetson Nano and other Jetson boards is called Linux4Tegra, which is actually a version of Ubuntu 18.04 that's designed to run on Nvidia's hardware. Check this link for details on how to install ros: http://wiki.ros.org/melodic/Installation/Ubuntu.   
