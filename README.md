@@ -29,7 +29,7 @@
 3. cd ~/ai_class_ws  
 4. catkin_make  
 5. rm -rf src/  
-6. git clone https://github.com/ArenPetrossian/Autonomous_Robotics_Class.git
+6. git clone https://github.com/Robotics-Courses/Autonomous_Robotics_Class.git 
 7. mv Autonomous_Robotics_Class src/
 8. catkin_make  
 9. echo "source ~/ai_class_ws/devel/setup.bash" >> ~/.bashrc
