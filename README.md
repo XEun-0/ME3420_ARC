@@ -159,7 +159,6 @@ To run Visual Studio Code, and setup github call it in a terminal
 
 
 
-
 ---
 ## 2.5 Run and View all Nodes
 1. cd ~/ai_class_ws/src/launchers/
@@ -185,5 +184,5 @@ To run Visual Studio Code, and setup github call it in a terminal
 
 
 ## 3.2 Image training
-
+add
 
