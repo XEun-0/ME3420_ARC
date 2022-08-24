@@ -4,12 +4,9 @@
 #Except for
 !.gitignore
 
-!darknet/
-!darknet/**
 !doc/
 !doc/**
-!executive_smach_visualization/
-!executive_smach_visualization/**
+
 !state_machine/
 !state_machine/**
 !computer_vision/
