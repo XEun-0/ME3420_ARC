@@ -16,7 +16,7 @@ This repository is used for a submarine robot course offered at California State
                     //\\
                     \\// (6)
 (2) Sensors: Camera, IMU, Temperature sensor  
-(3) Mother Board - Jetson Nando (run the overall program)  
+(3) Mother Board - Jetson Nano [is nando the model/make] (run the overall program)  
 (4) Microcontroller - Arduino Uno (for thruster command execution) 
 # What's included in this repository?
 It provides a miminum system that allows students to install on the onboard computer. The system is programed by using Python with ROS architecture. This minimum system that allows the robot to perform some basic movement: dive 1m -> rotate a 360 degs -> move forward following a sinsoidal curve -> return to the origin.   
