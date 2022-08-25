@@ -1,3 +1,4 @@
+# Team \#X Ashley Ly, Edward (Jong Yeon Kim) Fjura, Sam Carranza, David Camacho, Jordy Gutierrez
 # Submarine Robotics Introduction
 This repository is used for a submarine robot course offered at California State University, Los Angeles. The code works with a small submarine robot designed for this courses.
 # What does the robot look like?
