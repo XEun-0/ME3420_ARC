@@ -6,7 +6,6 @@
 
 !doc/
 !doc/**
-
 !state_machine/
 !state_machine/**
 !computer_vision/
@@ -20,7 +19,6 @@
 
 !launchers/
 !launchers/**
-!CMakeLists.txt
 !README.md
 !rqt_graph.png
 

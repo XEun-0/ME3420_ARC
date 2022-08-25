@@ -152,15 +152,8 @@ To run Visual Studio Code, and setup github call it in a terminal
 	* rosrun smach_viewer smach_viewer.py
 
 ---
-## 2.4 Install GUI package
-1. install dependencies
+## 2.4 Run and View all Nodes
 
-2. 
-
-
-
----
-## 2.5 Run and View all Nodes
 1. cd ~/ai_class_ws/src/launchers/
 2. chmod +x ../computer_vision/src/cv_node.py ../graphical_user_interface/src/gui_node.py ../guidance_navigation_control/src/gnc_node.py ../sensing_and_actuation/src/sensorActuator_node.py ../state_machine/src/smach_node.py
 3. *Choose an Option to Run Nodes:*
@@ -175,14 +168,3 @@ To run Visual Studio Code, and setup github call it in a terminal
 *The output should look like the following:*
 
 ![RQT_Graph](rqt_graph.png)
-
----
-# Topic 3: Training of Neural Network
-## 3.1 Image labeling
-1. prepare the images from videos
-2. labeling tool
-
-
-## 3.2 Image training
-add
-

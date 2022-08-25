@@ -77,8 +77,8 @@ class Guidance_Navigation_Control():
 		sleep(1)
 		#Backwards
 		self.setpoints.distance_set = -5
-		gnc_pub.publish(self.setpoints)
-		sleep(4)
+                gnc_pub.publish(self.setpoints)
+                sleep(4)
 		#Stop
 		self.setpoints.distance_set = 0
 		gnc_pub.publish(self.setpoints)

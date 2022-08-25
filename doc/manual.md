@@ -1,7 +1,6 @@
 # Manual
 
 
-
 ---
 ## 1. mechanical system
 
