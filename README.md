@@ -167,4 +167,6 @@ To run Visual Studio Code, and setup github call it in a terminal
 
 *The output should look like the following:*
 
-![RQT_Graph](rqt_graph.png)
+![RQT_Graph](fig/rqt_graph.png)
+
+

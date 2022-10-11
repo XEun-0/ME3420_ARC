@@ -4,6 +4,9 @@
 #Except for
 !.gitignore
 
+
+!fig/
+!fig/**
 !doc/
 !doc/**
 !state_machine/
