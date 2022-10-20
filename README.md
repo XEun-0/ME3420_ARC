@@ -45,8 +45,8 @@ Follow the progress of the course to modify the code within sections with place 
 
 Follow this link to setup the jetson-nano 4G: https://developer.nvidia.com/embedded/learn/get-started-jetson-nano-devkit.  
 Follow this link to setup the jetson-nano 2G: https://developer.nvidia.com/embedded/learn/get-started-jetson-nano-2gb-devkit.  
-Note: For Jetson-nano-2gb board, choose this version: Jetson Nano 2GB Developer Kit SD Card Image 4.6
-Username and password choose: robosub
+Note: For Jetson-nano-2gb board, choose this version: Jetson Nano 2GB Developer Kit SD Card Image 4.6, and the link is here: https://developer.nvidia.com/embedded/l4t/r32_release_v6.1/jeston_nano/jetson-nano-jp46-sd-card-image.zip  
+Username and password choose: robosub  
 After installation, your system will have this version: Ubuntu 18.04  
 
 ---
