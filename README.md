@@ -168,7 +168,8 @@ To run Visual Studio Code, and setup github call it in a terminal
 
 ![RQT_Graph](fig/rqt_graph.png)
 
+---
 ## 2.5 Setup VNC
 
 You can follow instructions here to setup VNC (optional, use headless model, access jetson under the same network via wifi): https://developer.nvidia.com/embedded/learn/tutorials/vnc-setup
-
+Someone else tried this, but I have not tried yet. Let me know how this works if you have tried. https://github.com/overclock98/Jetson_Nano_true_Headless_setup_without_hdmi_display/blob/main/README.md
