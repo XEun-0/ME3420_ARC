@@ -168,4 +168,7 @@ To run Visual Studio Code, and setup github call it in a terminal
 
 ![RQT_Graph](fig/rqt_graph.png)
 
+## 2.5 Setup VNC
+
+You can follow instructions here to setup VNC (optional, use headless model, access jetson under the same network via wifi): https://developer.nvidia.com/embedded/learn/tutorials/vnc-setup
 
