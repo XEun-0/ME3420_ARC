@@ -69,6 +69,7 @@ only has some of the most basic but important sensors - depth sensor, and inerti
 
 ### 3.1 overall design
 (add a fig here to show the overall design)
+(added text instead)
 Fig. Overall sotware desgin
 
 ---
