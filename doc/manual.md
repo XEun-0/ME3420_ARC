@@ -16,7 +16,7 @@
 
 ### 2.1 overall circuit diagram  
 
-A tyical electrical system on a robot should include the following subsystems
+A typical electrical system on a robot should include the following subsystems
 1. main computer: coordinate the mission of the robot
 2. microcontrollers: help the main computer get some tasks done
 3. sensors: understand the enviornment and itself
@@ -61,16 +61,33 @@ A more comprehensive comparison of linear and switching regulators can be found 
 ### 2.5 sensors
 
 With a focus on only the fundamentals, this robot 
-only has some of the most basic but important sensors - depth sensor, and inertial measurement unit(IMU). To be accurate, IMU integrats multiple sensors, including a magnetometer, gyroscopes, and accelerometers. More information on the IMU can be found here: https://www.adafruit.com/product/2472.
+only has some of the most basic but important sensors - depth sensor, and inertial measurement unit (IMU). To be accurate, IMU integrates multiple sensors, including a magnetometer, gyroscopes, and accelerometers. More information on the IMU can be found here: https://www.adafruit.com/product/2472.
 
 
 
 ## 3. software 
 
 ### 3.1 overall design
-(add a fig here to show the overall design)
-(added text instead)
-Fig. Overall sotware desgin
+
+The main system archictecture of the robot can be divided into three main categories: sense, think, and act. 
+
+(1) With the sensing functions, the robot is able to gather information about its surroundings and its current location relative to the objects around it. 
+
+(2) During the thinking phase, the robot inputs its gathered information into its navigation and path planning algorithms and decides on the next course of action through setpoints.
+
+(3) During the action phase, the robot takes the setpoints and its current location and uses a control system to navigate to the desired location.
+
+![SenseThinkAct](/fig/SenseThinkAct.png)
+Fig. 1 - Sense Think Act Paradigm
+
+To go more in-depth, the system archictecture tends to be seen as a multi-layered system which allows for code reusage, ease of testing, and increase scalability:
+
+A host layer, or user interface layer, is generally used for the user to observe all of the sensor information and actuator status, as well as information on the robot's health. 
+
+Underneath this host layer is the embedded hardware, which utilizes an algorithm layer (path planning, mapping, target recognition, etc.), a platform layer (navigation, filtering, etc.), and a driver layer (sensor data acquisiton, actuator movements, control system, etc.).
+
+![SystemArchitecture](/fig/System_Architecture.png)
+Fig. 2 - Overall Software Design
 
 ---
 ### 3.2 microcontroller, sensors, and actuators
@@ -84,6 +101,20 @@ The inertial measurement unit is from adafruit. To read sensor informaiton from 
 ---
 ### 3.3 robot operating system (ROS)
 
+The Robot Operating System, or ROS, is an open-source software framework with an extensive number of libraries and tools for use in robotics applications. 
+
+
+A ROS node is an executable file, in our case a python file, which will run simultaneously with other nodes while being capable of communicating with them.
+Every ROS node is either a publisher or subscriber. 
+- Publishers print out specified data to a topic.
+- Subscribers listen to the topic and collect the specific data they require.
+
+
+Multiple nodes can publish to one topic, and multiple nodes may subscribe to the same topic. On top of this, multiple topics can also be made to organize who is getting what data.
+
+
+![SystemArchitecture](/fig/Nodes-TopicandService.gif)
+Fig. 3 - ROS Node Communication
 
 ---
 #### 3.4 Jetson Nano, microcontroller
