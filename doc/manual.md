@@ -87,6 +87,7 @@ A host layer, or user interface layer, is generally used for the user to observe
 Underneath this host layer is the embedded hardware, which utilizes an algorithm layer (path planning, mapping, target recognition, etc.), a platform layer (navigation, filtering, etc.), and a driver layer (sensor data acquisiton, actuator movements, control system, etc.).
 
 ![SystemArchitecture](/fig/System_Architecture.png)
+
 Fig. 2 - Overall Software Design
 
 ---
@@ -114,6 +115,7 @@ Multiple nodes can publish to one topic, and multiple nodes may subscribe to th
 
 
 ![SystemArchitecture](/fig/Nodes-TopicandService.gif)
+
 Fig. 3 - ROS Node Communication
 
 ---
