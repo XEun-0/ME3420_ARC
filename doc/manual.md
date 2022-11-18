@@ -65,6 +65,7 @@ only has some of the most basic but important sensors - depth sensor, and inerti
 
 
 
+---
 ## 3. software 
 
 ### 3.1 overall design
@@ -78,7 +79,9 @@ The main system archictecture of the robot can be divided into three main catego
 (3) During the action phase, the robot takes the setpoints and its current location and uses a control system to navigate to the desired location.
 
 ![SenseThinkAct](/fig/SenseThinkAct.png)
-Fig. 1 - Sense Think Act Paradigm
+
+Fig. 1 - Sense Think Act Paradigm [1]
+
 
 To go more in-depth, the system archictecture tends to be seen as a multi-layered system which allows for code reusage, ease of testing, and increase scalability:
 
@@ -116,7 +119,28 @@ Multiple nodes can publish to one topic, and multiple nodes may subscribe to th
 
 ![SystemArchitecture](/fig/Nodes-TopicandService.gif)
 
-Fig. 3 - ROS Node Communication
+Fig. 3 - ROS Node Communication [2]
+
+For our robot, five main nodes communicate with each other over four topics. Each node can be seen in the following list or in Figure 4 below with the topics it publishes and subscribes to:
+1. **Computer Vision**
+    * Publisher: *Target*
+    * Subscriber: *n/a*
+2. **State Machine**
+    * Publisher: *Task_DesiredAction*
+    * Subscriber: *Target, ControlCommand, SensorInfo_ActuatorStatus*
+3. **Guidance, Navigation, and Control**
+    * Publisher: *ControlCommand*
+    * Subscriber: *Task_DesiredAction, SensorInfo_ActuatorStatus*
+4. **Sensors and Actuators**
+    * Publisher: *SensorInfo_ActuatorStatus*
+    * Subscriber: *ControlCommand*
+5. **Graphical User Interface**
+    * Publisher: *n/a*
+    * Subscriber: *Task_DesiredAction, SensorInfo_ActuatorStatus*
+
+![RQT_Graph](/fig/rqt_graph.png)
+
+Fig. 4 - Robot RQT Graph
 
 ---
 #### 3.4 Jetson Nano, microcontroller
@@ -126,8 +150,40 @@ Fig. 3 - ROS Node Communication
 ### 3.5 mission planner
 
 
+---
+### 3.6 control system
+
+The control system used in the robot utilizes multiple PIDs for the x, y, z directions, and yaw, pitch, roll orientations (see Fig 6 below). PID is an acryonym for a Proportional (P), Integral (I), Derivative (D) controller. 
+
+![PID_Equation](/fig/PID_Equation.png)
+
+Fig. 5 - PID Controller Equation [3]
+
+When the robot attempts to reach a new setpoint, the difference between the setpoint and its current position is calculated and is known as its error. The PID controller takes this error as an input and outputs a PWM speed for the thrusters so the robot can approach the setpoint.
+
+![RobotDirectionsAndOrientations](/fig/robot_xyz_ypr.png)
+
+Fig. 6 - Robot Directions and Orientations
+
+Before the PID controller can take the error and output the correct PWM, it must first be tuned. Tuning involves the changing of the Kp, Ki, and Kd values in the equation to achieve a close to ideal, stable system with a fast response time. 
+
+Although many tuning methods have been created, the figure below shows the process of manually tuning the controller.
+
+![PID_Tuning](/fig/PID_Tuning_Animated.gif)
+
+Fig. 7 - Manual PID Tuning [4]
 
 
 
 
+
+---
+## 4. references
+[1] “Improve Efficiency with Flexible Automation.” CrossCo, 3 Dec. 2020, https://www.crossco.com/resources/technical/fixed-versus-flexible-automation/. 
+
+[2] “Understanding Nodes.” ROS 2 Documentation: Rolling, https://docs.ros.org/en/rolling/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Nodes/Understanding-ROS2-Nodes.html. 
+
+[3] “What Is a PID Controller and How It Works?” PLCynergy, 14 Oct. 2022, https://plcynergy.com/pid-controller/. 
+
+[4] “PID Compensation Animated.” Wikimedia Commons, https://commons.wikimedia.org/wiki/File:PID_Compensation_Animated.gif. 
 
