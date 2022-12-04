@@ -44,10 +44,9 @@ Follow the progress of the course to modify the code within sections with place 
 # Topic 1: get started
 ## 1.1 prepare the micro-sd card for Nvidia Jetson Nano   
 
-Follow this link to setup the jetson-nano 4G: https://developer.nvidia.com/embedded/learn/get-started-jetson-nano-devkit.  
 Follow this link to setup the jetson-nano 2G: https://developer.nvidia.com/embedded/learn/get-started-jetson-nano-2gb-devkit.  
-Note: For Jetson-nano-2gb board, choose this version: Jetson Nano 2GB Developer Kit SD Card Image 4.6
-Username and password choose: robosub
+Note: For Jetson-nano-2gb board, choose this version: Jetson Nano 2GB Developer Kit SD Card Image 4.6, and the link is here: https://developer.nvidia.com/embedded/l4t/r32_release_v6.1/jeston_nano/jetson-nano-jp46-sd-card-image.zip  
+Username and password choose: robosub  
 After installation, your system will have this version: Ubuntu 18.04  
 
 ---
@@ -168,4 +167,10 @@ To run Visual Studio Code, and setup github call it in a terminal
 
 *The output should look like the following:*
 
-![RQT_Graph](rqt_graph.png)
+![RQT_Graph](fig/rqt_graph.png)
+
+---
+## 2.5 Setup VNC
+
+You can follow instructions here to setup VNC (optional, use headless model, access jetson under the same network via wifi): https://developer.nvidia.com/embedded/learn/tutorials/vnc-setup
+Someone else tried this, but I have not tried yet. Let me know how this works if you have tried. https://github.com/overclock98/Jetson_Nano_true_Headless_setup_without_hdmi_display/blob/main/README.md
